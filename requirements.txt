@@ -10,7 +10,7 @@ Django==3.0.7
 django-cors-headers==3.5.0
 django-heroku==0.3.1
 djangorestframework==3.11.0
-djangorestframework-simplejwt==4.4.0
+djangorestframework-simplejwt==4.5.0
 drf-yasg==1.20.0
 facebook-sdk==3.1.0
 Faker==4.1.0
