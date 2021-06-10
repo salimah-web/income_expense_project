@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, serializers, status, views
-from .serializers import RegisterSerializer, EmailVerificationSerializers, LoginSerializer
+from .serializers import RegisterSerializer, EmailVerificationSerializers, LoginSerializer, RegisterSuperuserSerializer
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
@@ -13,7 +13,18 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 # Create your views here.
 
+class RegisterSuperuser(generics.GenericAPIView):
+    serializer_class = RegisterSuperuserSerializer
 
+    def post(self, request):
+        user = request.data
+        serializer = self.serializer_class(data=user)
+        serializer.is_valid(raise_exception = True)
+        
+        serializer.save()
+
+        user_data = serializer.data
+        return Response({'message':'check email to verify your account'}, status= status.HTTP_201_CREATED)
 class RegisterView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
@@ -21,6 +32,7 @@ class RegisterView(generics.GenericAPIView):
         user = request.data
         serializer = self.serializer_class(data=user)
         serializer.is_valid(raise_exception = True)
+        
         serializer.save()
 
         user_data = serializer.data
@@ -37,7 +49,7 @@ class RegisterView(generics.GenericAPIView):
         data={'email_body':email_body, 'email_subject':'Verify your email', 'to_email':user.email}
         Util.send_email(data)
         
-        return Response(user_data, status= status.HTTP_201_CREATED)
+        return Response({'message':'check email to verify your account'}, status= status.HTTP_201_CREATED)
 
 class VerifyEmail(views.APIView):
     serializer_class = EmailVerificationSerializers
