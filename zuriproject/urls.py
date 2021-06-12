@@ -39,7 +39,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('', include('zuriapp.urls')),
-    path('', include('authentication.urls')),
+    path('auth/', include('authentication.urls')),
     path('expenses/', include('expenses.urls')),
     path('income/', include('income.urls')),
     path('facebook/', FacebookSocialAuthView.as_view()),

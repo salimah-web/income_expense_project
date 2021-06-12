@@ -2,10 +2,10 @@ from enum import unique
 from django.db import models
 from django.db.models import fields
 from drf_yasg.utils import param_list_to_odict
-from rest_framework import serializers
+from rest_framework import serializers, validators
 from .models import User
 from django.contrib import auth
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 
 class RegisterSuperuserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=68, write_only= True)
@@ -22,7 +22,7 @@ class RegisterSuperuserSerializer(serializers.ModelSerializer):
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(max_length=68, write_only= True)
-    email = serializers.EmailField(max_length=255)
+    #email = serializers.EmailField(max_length=255)
     class Meta:
         model = User
         fields=['email','username','password']
@@ -30,10 +30,14 @@ class RegisterSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         email = attrs.get('email','')
         username= attrs.get('username','')
+        
         return attrs
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+class EmailTokenSerializer(serializers.Serializer):
+    email=serializers.EmailField(max_length=255)
 
 class EmailVerificationSerializers(serializers.ModelSerializer):
     token = serializers.CharField(max_length= 555)
