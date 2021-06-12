@@ -7,6 +7,6 @@ urlpatterns=[
     path('verify_email/', VerifyEmail.as_view(), name= 'verify_email'),
     path('verify_email_newtoken/', EmailToken.as_view(), name= 'new-token'),
     path('login/', LoginAPIView.as_view(), name= 'login'),
-    path('/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 ]
