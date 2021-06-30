@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'zuriproject.urls'
+ROOT_URLCONF = 'income_expense_project.urls'
 
 TEMPLATES = [
     {
@@ -90,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'zuriproject.wsgi.application'
+WSGI_APPLICATION = 'income_expense_project.wsgi.application'
 
 
 # Database
