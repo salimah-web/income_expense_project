@@ -1,4 +1,4 @@
 release: python manage.py makemigrations --no-input
 release: python manage.py migrate --no-input
 
-web: gunicorn zuriproject.wsgi
+web: gunicorn income_expense_project.wsgi
